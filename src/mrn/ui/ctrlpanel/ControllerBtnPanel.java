@@ -1,9 +1,14 @@
 package mrn.ui.ctrlpanel;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import mrn.data.Cell;
+import mrn.data.CellState;
 import mrn.data.Model;
 import mrn.ui.base.Controller;
 import java.beans.PropertyChangeEvent;
+import java.util.LinkedList;
 
 public class ControllerBtnPanel extends Controller<Model, ViewBtnPanel> {
 
@@ -16,6 +21,7 @@ public class ControllerBtnPanel extends Controller<Model, ViewBtnPanel> {
         view.setStart.setOnMouseClicked(this::clickSetStart);
         view.setTarget.setOnMouseClicked(this::clickSetTarget);
         view.flood.setOnMouseClicked(this::clickFloodButton);
+        view.findPath.setOnMouseClicked(this::clickFindPath);
     }
 
     @Override
@@ -38,7 +44,13 @@ public class ControllerBtnPanel extends Controller<Model, ViewBtnPanel> {
     }
 
     public void clickFloodButton(MouseEvent e) {
-        model.ca.flood();
+        model.ca.flood2();
         change.firePropertyChange("flood", null, null);
+    }
+
+    public void clickFindPath(MouseEvent e) {
+        model.ca.findPath2();
+        change.firePropertyChange("drawpath", null, null);
+
     }
 }

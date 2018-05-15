@@ -3,7 +3,9 @@ package mrn.ui.view_2;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import mrn.data.Cell;
 import mrn.data.Model;
@@ -16,7 +18,7 @@ public class ViewCA extends View<Model> {
     private GridPane layout;
     private Rectangle[][] cells;
     private StackPane[][] sells;
-    public int cell_size = 15;
+    public int cell_size = 30;
     int size_x = 0;
     int size_y = 0;
 
@@ -36,7 +38,6 @@ public class ViewCA extends View<Model> {
 
     @Override
     protected void init() {
-        cell_size = 15;
         layout = new GridPane();
         System.out.println(layout.getHgap() + " " + layout.getVgap());
 
@@ -82,8 +83,16 @@ public class ViewCA extends View<Model> {
                         break;
                     case FLOODED:
                         cells[i][j].setFill(Color.color(0, .8, 1));
-                        Text d = new Text(String.valueOf(model.ca.getCell(i, j).getFloodDistance()));
+                        Double floodDistance = model.ca.getCell(i, j).getFloodDistance();
+
+                        Text d = new Text(String.format("%.1f", model.ca.getCell(i, j).getFloodDistance()));
+                        d.setFont(Font.font ("Verdana", cell_size * 1 / 3));
+                        d.maxWidth(cell_size);
                        sells[i][j].getChildren().add(d);
+                       break;
+                    case PATH:
+                        cells[i][j].setFill(Color.color(1, .75, 0));
+                        break;
 
 
                      //   StackPane s = (StackPane)layout.getChildren().get(i*this.size_y+j);
@@ -91,6 +100,13 @@ public class ViewCA extends View<Model> {
                 }
             }
         }
+    }
+
+    public void drawPath() {
+
+
+
+
     }
 }
 

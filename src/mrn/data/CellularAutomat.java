@@ -29,7 +29,9 @@ public class CellularAutomat {
         return cells[x][y];
     }
 
-
+    public LinkedList<Cell> getMooreNeighbors(Cell c) {
+        return this.getMooreNeighbors(c.getX(), c.getY());
+    }
     public LinkedList<Cell> getMooreNeighbors(int x, int y){
         LinkedList<Cell> n = new LinkedList<>();
         Coord2D[] indexes = {
@@ -53,9 +55,56 @@ public class CellularAutomat {
         }
         return n;
     }
+    public LinkedList<Cell> getNeumannNeighbors(Cell c) {
+        return this.getNeumannNeighbors(c.getX(), c.getY());
+    }
+    public LinkedList<Cell> getNeumannNeighbors(int x, int y) {
+
+        LinkedList<Cell> n = new LinkedList<>();
+        Coord2D[] indexes = {
+                new Coord2D(x, y - 1),            // upper
+                new Coord2D(x + 1, y),          // right
+                new Coord2D(x, y + 1),          // lower
+                new Coord2D(x - 1, y),          // left
+        };
+
+        for(int i = 0; i < indexes.length; ++i) {
+            try {
+                Cell nCell = getCell(indexes[i].x, indexes[i].y);
+                n.add(nCell);
+            } catch (IndexOutOfBoundsException ignore) {
+
+            }
+        }
+        return n;
+    }
 
     public int getSize_x() {
         return size_x;
+    }
+
+
+    public LinkedList<Cell> getDiagonalNeighbors(Cell c) {
+        return this.getDiagonalNeighbors(c.getX(), c.getY());
+    }
+    public LinkedList<Cell> getDiagonalNeighbors(int x, int y) {
+        LinkedList<Cell> n = new LinkedList<>();
+        Coord2D[] indexes = {
+                new Coord2D(x + 1, y - 1),   // upper right
+                new Coord2D(x + 1, y + 1),   // lower right
+                new Coord2D(x - 1, y + 1),   // lower left
+                new Coord2D(x - 1, y - 1),   // upper left
+        };
+
+        for(int i = 0; i < indexes.length; ++i) {
+            try {
+                Cell nCell = getCell(indexes[i].x, indexes[i].y);
+                n.add(nCell);
+            } catch (IndexOutOfBoundsException ignore) {
+
+            }
+        }
+        return n;
     }
 
     public int getSize_y() {

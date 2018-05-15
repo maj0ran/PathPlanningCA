@@ -1,6 +1,8 @@
 package mrn.ui.view_2;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import mrn.data.Cell;
 import mrn.data.CellState;
 import mrn.data.Model;
@@ -38,6 +40,15 @@ public class ControllerCA extends Controller<Model, ViewCA> {
         }
 
         if(property.equals("flood")) {
+            view.update();
+        }
+
+        if(property.equals("drawpath")) {
+            view.update();
+        }
+
+        if(property.equals("update")) {
+            view.initCE();
             view.update();
         }
     }

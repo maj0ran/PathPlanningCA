@@ -6,4 +6,5 @@ public enum CellState {
     VEHICLE,
     TARGET,
     FLOODED,
+    PATH,
 }

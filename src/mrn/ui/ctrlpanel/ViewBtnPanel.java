@@ -12,6 +12,7 @@ public class ViewBtnPanel extends View<Model> {
     ToggleButton setTarget;
 
     Button flood;
+    Button findPath;
 
     public ViewBtnPanel(Model model) {
         this.setModel(model);
@@ -25,12 +26,14 @@ public class ViewBtnPanel extends View<Model> {
         setStart = new ToggleButton("Set Start");
         setTarget = new ToggleButton("Set Target");
         flood = new Button("Flood");
+        findPath = new Button("Find Path");
 
         setStart.setMinWidth(100);
         setTarget.setMinWidth(100);
 
         flood.setMinWidth(100);
-        layout.getChildren().addAll(setStart, setTarget, flood);
+        findPath.setMinWidth(100);
+        layout.getChildren().addAll(setStart, setTarget, flood, findPath);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class ViewMenu extends View<Model> {
     protected void init() {
         menu = new MenuBar();
         menuFile = new Menu("File");
-        reset = new MenuItem("reset");
+        reset = new MenuItem("Reset");
 
         menuFile.getItems().add(reset);
         menu.getMenus().add(menuFile);

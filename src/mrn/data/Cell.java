@@ -5,11 +5,14 @@ import java.util.LinkedList;
 public class Cell {
 
     private CellState state = CellState.FREE;
-    private Integer floodDistance = null;
+    private Double floodDistance = null;
 
 
     private int x;
     private int y;
+
+    public Cell parent = null;
+    public boolean isChild = false;
 
     public Cell(int posx, int posy) {
         x = posx;
@@ -32,11 +35,11 @@ public class Cell {
         return y;
     }
 
-    public Integer getFloodDistance() {
+    public Double getFloodDistance() {
         return floodDistance;
     }
 
-    public void setFloodDistance(Integer d) {
+    public void setFloodDistance(Double d) {
         this.floodDistance = d;
     }
 }

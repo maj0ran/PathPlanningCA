@@ -6,6 +6,6 @@ public class Model {
     public PathPlanningCA ca;
 
     public Model() {
-        ca = new PathPlanningCA(40, 30);
+        ca = new PathPlanningCA(60, 30);
     }
 }
