@@ -2,8 +2,8 @@ package mrn.data;
 
 public enum CellState {
     FREE,
-    BLOCKED,
-    VEHICLE,
+    OBSTACLE,
+    START,
     TARGET,
     FLOODED,
     PATH,

@@ -21,7 +21,7 @@ public class ControllerMenu extends Controller<Model, ViewMenu> {
     @Override
     protected void init(Model model, ViewMenu view) {
         view.reset.setOnAction(e -> { model.ca.reset();
-        change.firePropertyChange("update", null, null);
+        change.firePropertyChange("reset", null, null);
         });
 
 

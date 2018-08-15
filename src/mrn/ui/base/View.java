@@ -32,6 +32,6 @@ public abstract class View<M> {
         this.ctrl = ctrl;
     }
 
-    public abstract <T> T getRoot();
+    public abstract Object getRoot();
 
 }

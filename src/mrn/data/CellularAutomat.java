@@ -1,6 +1,5 @@
 package mrn.data;
 
-import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class CellularAutomat {
@@ -29,12 +28,13 @@ public class CellularAutomat {
         return cells[x][y];
     }
 
-    public LinkedList<Cell> getMooreNeighbors(Cell c) {
-        return this.getMooreNeighbors(c.getX(), c.getY());
+    public LinkedList<Cell> getAllNeighbors(Cell c) {
+        return this.getAllNeighbors(c.getX(), c.getY());
     }
-    public LinkedList<Cell> getMooreNeighbors(int x, int y){
-        LinkedList<Cell> n = new LinkedList<>();
-        Coord2D[] indexes = {
+
+    private LinkedList<Cell> getAllNeighbors(int x, int y){
+        LinkedList<Cell> neighbors = new LinkedList<>();
+        Coord2D[] indeces = {
                 new Coord2D(x, y-1),            // upper
                 new Coord2D(x + 1, y - 1),   // upper right
                 new Coord2D(x + 1, y),          // right
@@ -45,66 +45,68 @@ public class CellularAutomat {
                 new Coord2D(x - 1, y - 1),   // upper left
         };
 
-        for(int i = 0; i < indexes.length; ++i) {
+        for (Coord2D index : indeces) {
             try {
-                Cell nCell = getCell(indexes[i].x, indexes[i].y);
-                n.add(nCell);
+                Cell nCell = getCell(index.x, index.y);
+                neighbors.add(nCell);
             } catch (IndexOutOfBoundsException ignore) {
 
             }
         }
-        return n;
+        return neighbors;
     }
-    public LinkedList<Cell> getNeumannNeighbors(Cell c) {
-        return this.getNeumannNeighbors(c.getX(), c.getY());
+    public LinkedList<Cell> getEdgeNeighbors(Cell c) {
+        return this.getEdgeNeighbors(c.getX(), c.getY());
     }
-    public LinkedList<Cell> getNeumannNeighbors(int x, int y) {
+    private LinkedList<Cell> getEdgeNeighbors(int x, int y) {
 
-        LinkedList<Cell> n = new LinkedList<>();
-        Coord2D[] indexes = {
+        LinkedList<Cell> neighbors = new LinkedList<>();
+        Coord2D[] indeces = {
                 new Coord2D(x, y - 1),            // upper
                 new Coord2D(x + 1, y),          // right
                 new Coord2D(x, y + 1),          // lower
                 new Coord2D(x - 1, y),          // left
         };
 
-        for(int i = 0; i < indexes.length; ++i) {
+        for (Coord2D index : indeces) {
             try {
-                Cell nCell = getCell(indexes[i].x, indexes[i].y);
-                n.add(nCell);
+                Cell nCell = getCell(index.x, index.y);
+                neighbors.add(nCell);
             } catch (IndexOutOfBoundsException ignore) {
 
             }
         }
-        return n;
-    }
-
-    public int getSize_x() {
-        return size_x;
+        return neighbors;
     }
 
 
-    public LinkedList<Cell> getDiagonalNeighbors(Cell c) {
-        return this.getDiagonalNeighbors(c.getX(), c.getY());
+    public LinkedList<Cell> getCornerNeighbors(Cell c) {
+        return this.getCornerNeighbors(c.getX(), c.getY());
     }
-    public LinkedList<Cell> getDiagonalNeighbors(int x, int y) {
-        LinkedList<Cell> n = new LinkedList<>();
-        Coord2D[] indexes = {
+
+    private LinkedList<Cell> getCornerNeighbors(int x, int y) {
+        LinkedList<Cell> neighbors = new LinkedList<>();
+        Coord2D[] indeces = {
                 new Coord2D(x + 1, y - 1),   // upper right
                 new Coord2D(x + 1, y + 1),   // lower right
                 new Coord2D(x - 1, y + 1),   // lower left
                 new Coord2D(x - 1, y - 1),   // upper left
         };
 
-        for(int i = 0; i < indexes.length; ++i) {
+        for (Coord2D index : indeces) {
             try {
-                Cell nCell = getCell(indexes[i].x, indexes[i].y);
-                n.add(nCell);
+                Cell nCell = getCell(index.x, index.y);
+                neighbors.add(nCell);
             } catch (IndexOutOfBoundsException ignore) {
 
             }
         }
-        return n;
+        return neighbors;
+    }
+
+
+    public int getSize_x() {
+        return size_x;
     }
 
     public int getSize_y() {

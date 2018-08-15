@@ -1,5 +1,7 @@
 package mrn.ui.ctrlpanel;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
@@ -7,12 +9,11 @@ import mrn.data.Model;
 import mrn.ui.base.View;
 
 public class ViewBtnPanel extends View<Model> {
-    VBox layout;
-    ToggleButton setStart;
-    ToggleButton setTarget;
-
-    Button flood;
-    Button findPath;
+    private VBox layout;
+    ToggleButton btnSetStart;
+    ToggleButton btnSetTarget;
+    Button btnFlood;
+    Button btnFindPath;
 
     public ViewBtnPanel(Model model) {
         this.setModel(model);
@@ -23,17 +24,26 @@ public class ViewBtnPanel extends View<Model> {
     protected void init() {
         layout = new VBox();
         layout.setSpacing(10);
-        setStart = new ToggleButton("Set Start");
-        setTarget = new ToggleButton("Set Target");
-        flood = new Button("Flood");
-        findPath = new Button("Find Path");
+        layout.setMinWidth(150);
+        layout.setAlignment(Pos.TOP_CENTER);
 
-        setStart.setMinWidth(100);
-        setTarget.setMinWidth(100);
+        btnSetStart = new ToggleButton("Set Start");
+        btnSetTarget = new ToggleButton("Set Target");
+        btnFlood = new Button("Flood");
+        btnFindPath = new Button("Find Path");
 
-        flood.setMinWidth(100);
-        findPath.setMinWidth(100);
-        layout.getChildren().addAll(setStart, setTarget, flood, findPath);
+
+        btnSetStart.setMinWidth(100);
+
+        btnSetTarget.setMinWidth(100);
+
+        btnFlood.setMinWidth(100);
+        btnFlood.setDisable(true);
+
+        btnFindPath.setMinWidth(100);
+        btnFindPath.setDisable(true);
+
+        layout.getChildren().addAll(btnSetStart, btnSetTarget, btnFlood, btnFindPath);
     }
 
     @Override

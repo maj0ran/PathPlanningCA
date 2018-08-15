@@ -1,9 +1,8 @@
-package mrn.ui.view_2;
+package mrn.ui.ca;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -11,16 +10,16 @@ import mrn.data.Cell;
 import mrn.data.Model;
 import mrn.ui.base.View;
 
-import java.util.List;
-
 public class ViewCA extends View<Model> {
 
     private GridPane layout;
     private Rectangle[][] cells;
-    private StackPane[][] sells;
-    public int cell_size = 30;
-    int size_x = 0;
-    int size_y = 0;
+    private StackPane[][] cellStacks;
+    private Text[][] cellDistances;
+
+    public int cell_size = 40;
+    private int size_x = 0;
+    private int size_y = 0;
 
     public ViewCA(Model model) {
         this.setModel(model);
@@ -28,6 +27,7 @@ public class ViewCA extends View<Model> {
         initCE();
     }
 
+    @Override
     public GridPane getRoot() {
         return this.layout;
     }
@@ -45,10 +45,14 @@ public class ViewCA extends View<Model> {
     }
 
     public void initCE() {
+
+        layout.getChildren().clear();
+
         this.size_x = model.ca.getSize_x();
         this.size_y = model.ca.getSize_y();
         cells = new Rectangle[size_x][size_y];
-        sells = new StackPane[size_x][size_y];
+        cellDistances = new Text[size_x][size_y];
+        cellStacks = new StackPane[size_x][size_y];
 
         for (int i = 0; i < size_x; i++) {
             for (int j = 0; j < size_y; j++) {
@@ -57,9 +61,16 @@ public class ViewCA extends View<Model> {
                 cells[i][j].setHeight(cell_size - cells[i][j].getStrokeWidth());
                 cells[i][j].setStroke(Color.color(0, 0, 0));
                 cells[i][j].setFill(Color.color(1, 1, 1));
-                sells[i][j] = new StackPane();
-                sells[i][j].getChildren().add(0, cells[i][j]);
-                layout.add(sells[i][j], i, j);
+
+                cellDistances[i][j] = new Text();
+                cellDistances[i][j].setFont(Font.font ("Verdana", cell_size / 3));
+                cellDistances[i][j].maxWidth(cell_size);
+                cellDistances[i][j].setVisible(false);
+
+                cellStacks[i][j] = new StackPane();
+                cellStacks[i][j].getChildren().add(0, cells[i][j]);
+                cellStacks[i][j].getChildren().add(1, cellDistances[i][j]);
+                layout.add(cellStacks[i][j], i, j);
             }
         }
     }
@@ -72,41 +83,26 @@ public class ViewCA extends View<Model> {
                     case FREE:
                         cells[i][j].setFill(Color.color(1, 1, 1));
                         break;
-                    case BLOCKED:
+                    case OBSTACLE:
                         cells[i][j].setFill(Color.color(0, 0, 0));
                         break;
-                    case VEHICLE:
+                    case START:
                         cells[i][j].setFill(Color.color(0, 1, 0));
                         break;
                     case TARGET:
                         cells[i][j].setFill(Color.color(1, 0, 0));
                         break;
                     case FLOODED:
-                        cells[i][j].setFill(Color.color(0, .8, 1));
-                        Double floodDistance = model.ca.getCell(i, j).getFloodDistance();
-
-                        Text d = new Text(String.format("%.1f", model.ca.getCell(i, j).getFloodDistance()));
-                        d.setFont(Font.font ("Verdana", cell_size * 1 / 3));
-                        d.maxWidth(cell_size);
-                       sells[i][j].getChildren().add(d);
+                        cells[i][j].setFill(Color.color(0, 0.85, 1));
+                        cellDistances[i][j].setText(String.format("%.1f", model.ca.getCell(i,j).getFloodDistance()));
+                        cellDistances[i][j].setVisible(true);
                        break;
                     case PATH:
                         cells[i][j].setFill(Color.color(1, .75, 0));
                         break;
-
-
-                     //   StackPane s = (StackPane)layout.getChildren().get(i*this.size_y+j);
-                    //    s.getChildren().add(d);
                 }
             }
         }
-    }
-
-    public void drawPath() {
-
-
-
-
     }
 }
 
